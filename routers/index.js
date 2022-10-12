@@ -3,7 +3,7 @@ const router = express.Router()
 const { Controller } = require('../controllers/controller.js');
 
 router.get('/', (req, res) => {
-	res.render('annyeong')
+	res.send('annyeong')
 })
 
 module.exports = router;
