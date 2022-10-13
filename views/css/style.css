@@ -152,6 +152,7 @@ body {
 .post__avatar img {
   border-radius: 50%;
   height: 40px;
+  width: 40px;
 }
 
 .post {
@@ -242,7 +243,12 @@ body {
   font-weight: 800;
 }
 
+
 .text-decoration-none {
   text-decoration: none;
-  color: black;
+  color: black !important;
+}
+
+a.text-decoration-none:hover {
+  cursor: pointer; 
 }

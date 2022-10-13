@@ -83,7 +83,7 @@ class UserController {
     })
     .then(user=>{
       let session = req.session
-      console.log(req.session, '<< dari controller');
+      // console.log(req.session, '<< dari controller');
           res.render(`profile`, {user, session})
     })
     .catch(err=>{

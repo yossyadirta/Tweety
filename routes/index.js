@@ -6,13 +6,12 @@ const profilesRoutes = require('./profilesRoutes');
 const adminRoutes = require('./adminRoutes');
 
 router.get('/', (req, res) => {
-	// res.redirect('/tweets/home')
-	// res.send('annyeong')
+	res.redirect('/login')
 })
 
+router.use('/', adminRoutes)
 router.use('/tweets', tweetsRoutes)
 router.use('/profiles', profilesRoutes)
-router.use('/admin', adminRoutes)
 
 module.exports = router;
 

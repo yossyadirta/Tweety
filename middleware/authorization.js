@@ -1,5 +1,5 @@
 const isAdmin = (req, res, next) => {
-  console.log(req.session.role, '<<< Admin dari middleware')
+  // console.log(req.session.role, '<<< Admin dari middleware')
   if (req.session.role !== 'admin') {  
     const error = 'You have no access to this page' 
     res.redirect(`/login?error=${error}`)
@@ -9,7 +9,7 @@ const isAdmin = (req, res, next) => {
 }
 
 const isUser = (req, res, next) => {
-  console.log(req.session.role, '<<< User dari middleware')
+  // console.log(req.session.role, '<<< User dari middleware')
   if (req.session.role !== 'admin') {  
     next()
   }

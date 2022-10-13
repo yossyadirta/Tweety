@@ -10,7 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     get tweetDate() {
-      return this.createdAt.toISOString().slice(0, 10)
+      const t = this.createdAt
+      const _minutes = t.getMinutes();
+      const minutes = _minutes.toString().length == 1 ? '0'+_minutes : _minutes.toString();
+
+      return t.getHours() + ':' + minutes + ' · ' + t.toLocaleDateString({}, {timeZone:"UTC",month:"long", day:"2-digit", year:"numeric"})
     }
 
     static associate(models) {
@@ -38,19 +42,7 @@ module.exports = (sequelize, DataTypes) => {
       }   
     },
     imageURL: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notNull: {
-          msg: 'ImageURL cannot be empty'
-        },
-        notEmpty: {
-          msg: 'ImageURL cannot be empty'
-        },
-        isUrl: {
-          msg: 'Please enter valid URL'
-        }
-      }   
+      type: DataTypes.STRING 
     },
     UserId: {
       type: DataTypes.INTEGER,
