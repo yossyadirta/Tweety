@@ -6,22 +6,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+    </style>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link
+  rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+    crossorigin="anonymous"
+  />
+  <style>
+    * {
+      font-family: 'Lato', sans-serif;
+    }
+    h1 {
+      font-weight: 800;
+    }
     .primary-color {
       background-color: #fdbc3a
     }
     .primary-color-text {
       color: #fdbc3a
     }
+    .white-color-text {
+      color: #ffffff
+    }
+    .logo {
+      -moz-transform: scale(-1, 1);
+      -webkit-transform: scale(-1, 1);
+      -o-transform: scale(-1, 1);
+      -ms-transform: scale(-1, 1);
+      transform: scale(-1, 1);
+      color: #fdbc3a
+    }
   </style>
-  <title>Document</title>
+  <title>Sign In to Tweety</title>
 </head>
 <body>
-  <div class="container-md" style="width: 25%;">
+  <div class="container-md" style="width: 20%;">
 
-    <br><br>
-    <div class="text-center">
-      <h1 class="primary-color-text">Tweety</h1>
-      <h3>Login</h3>
+    <div class="text-center" style="padding-top: 25%;">
+      <i class="fab fa-twitter logo" style="font-size: 72px;"></i>
+      <h1 class="primary-color-text" style="padding-bottom: 16px;">Tweety</h1>
+      <h2 style="font-weight: 600;">Sign In</h3>
     </div>
     
     <br><br>
@@ -38,25 +65,27 @@
         <!-- Pills navs -->
     <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
       <li class="nav-item primary-color" role="presentation">
-        <a class="nav-link primary-color" id="tab-login" data-mdb-toggle="pill" href="/login" role="tab"
-          aria-controls="pills-login" aria-selected="true">Login</a>
+        <a class="nav-link white-color-text" id="tab-login" data-mdb-toggle="pill" href="/login" role="tab"
+          aria-controls="pills-login" aria-selected="true">Sign In</a>
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link primary-color" id="tab-register" data-mdb-toggle="pill" href="/register" role="tab"
-          aria-controls="pills-register" aria-selected="false">Register</a>
+        <a class="nav-link primary-color-text" id="tab-register" data-mdb-toggle="pill" href="/register" role="tab"
+          aria-controls="pills-register" aria-selected="false">Sign Up</a>
       </li>
     </ul>
+    <br>
     <!-- Pills navs -->
     <form action="/login" method="post">
       <div class="mb-3">
-        <label for="email" class="form-label">Email / Username</label>
-        <input type="text" class="form-control" name="email" aria-describedby="emailHelp">
+        <label for="email" class="form-label">Email or Username</label>
+        <input type="text" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Email or Username">
       </div>
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" name="password">
+        <input type="password" class="form-control" name="password" placeholder="Password">
       </div>
-      <button type="submit" class="btn primary-color" style="width: 100%">Submit</button>
+      <br>
+      <button type="submit" class="btn primary-color white-color-text" style="width: 100%">Sign In</button>
     </form>
   </div>
 </body>
