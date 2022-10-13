@@ -1,4 +1,4 @@
-const { User, Profile } = require('../models/index')
+const { User, Profile, Tweet } = require('../models/index')
 const bcrypt = require('bcryptjs');
 const { Op } = require('sequelize');
 
@@ -83,19 +83,62 @@ class UserController {
 
   static renderProfile(req, res){
     let { username } = req.params
+
     User.findOne({
       where: {
         username
-      }
+      },
+      include: [Profile, Tweet]
     })
     .then(user=>{
       let session = req.session
+      console.log(user, "INI DATA INCLUDE PROFILE =================");
       // console.log(req.session, '<< dari controller');
-          res.render(`profile`, {user, session})
+          res.render('profile', { user, session })
     })
     .catch(err=>{
       res.send(err)
     })
+  }
+
+  static renderEditProfile(req, res){
+    let { username } = req.params
+    const errors = req.query.errors?JSON.parse(req.query.errors):'';
+    
+    User.findOne({
+      where: {
+        username
+      },
+      include: [Profile, Tweet]
+    })
+    .then(user=>{
+      let session = req.session
+      console.log(user, "INI DATA INCLUDE PROFILE =================");
+      res.render('profile-edit', {user, session, errors})
+    })
+    .catch(err=>{
+      res.send(err)
+    })
+  }
+
+  static editProfile(req, res){
+   let uname = req.params.username
+   const { firstName, lastName, username } = req.body
+   User.update({ firstName, lastName, username }, {where: { username: uname }})
+   .then(data => {
+    res.redirect(`/profile/${username}`)
+   })
+   .catch(err=>{
+    if (err.name === 'SequelizeValidationError') {
+      const errors = {}
+      err.errors.forEach(el => {
+        errors[el.path] = el.message
+      })
+      res.redirect(`/profile/${username}/edit?errors=${JSON.stringify(errors)}`)
+    } else {
+      res.send(err)
+    }
+  })
   }
 
   static renderAdmin(req, res){

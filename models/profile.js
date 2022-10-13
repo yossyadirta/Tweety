@@ -13,6 +13,15 @@ module.exports = (sequelize, DataTypes) => {
       return new Date().getFullYear() - new Date(this.dateOfBirth).getFullYear()
     }
 
+    get joinedDate() {
+      const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+      const d = this.createdAt
+      let month = months[d.getMonth()];
+      let year = d.getFullYear()
+
+      return `${month} ${year}`
+    }
+
     static associate(models) {
       // define association here
       Profile.belongsTo(models.User,  {
