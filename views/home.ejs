@@ -37,7 +37,7 @@
       </a>
 
       <!-- Profile -->
-        <a href="/profile/<%=username%>" class="text-decoration-none"> 
+        <a href="/profile/<%= dataUser.username %>" class="text-decoration-none"> 
       <div class="sidebarOption">
         <span class="material-icons"> 
           perm_identity 
@@ -75,7 +75,7 @@
         <form action="" method="">
           <div class="tweetbox__input">
             <img
-              src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png"
+              src="<%= dataUser.imageURL || 'https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png' %>"
               alt=""
             />
             <input type="text" name="" placeholder="What's happening?" />
@@ -86,30 +86,32 @@
       <!-- tweetbox ends -->
 
       <!-- post starts -->
+      <% data.forEach(el => { %> 
       <div class="post">
         <div class="post__avatar">
           <img
-          src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png"
+          src="<%= el.User.Profile.imageURL %> "
             alt=""
           />
         </div>
-
         <div class="post__body">
           <div class="post__header">
             <div class="post__headerText">
               <h3>
-                Somanath Goudar
-                <span class="post__headerSpecial"
-                  ><span class="material-icons post__badge"> verified </span>@somanathg</span
-                >
+                <%= el.User.Profile.firstName %> <%= el.User.Profile.lastName %>
+                <span class="post__headerSpecial">
+                <% if (el.User.isVerified) { %> 
+                  <span class="material-icons post__badge"> verified </span>
+                <% } %> 
+                  @<%= el.User.username %> </span> <span><%= getSince(el.createdAt) %> </span> 
               </h3>
             </div>
             <div class="post__headerDescription">
-              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+              <p><%= el.tweet %> </p>
             </div>
           </div>
           <img
-            src="https://www.focus2move.com/wp-content/uploads/2020/01/Tesla-Roadster-2020-1024-03.jpg"
+            src="<%= el.imageURL %> "
             alt=""
           />
           <div class="post__footer">
@@ -119,44 +121,10 @@
           </div>
         </div>
       </div>
+      <% }) %> 
       <!-- post ends -->
       <!-- End of CONTENT -->
 
-      <!-- post starts -->
-      <div class="post">
-        <div class="post__avatar">
-          <img
-          src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png"
-            alt=""
-          />
-        </div>
-
-        <div class="post__body">
-          <div class="post__header">
-            <div class="post__headerText">
-              <h3>
-                Somanath Goudar
-                <span class="post__headerSpecial"
-                  ><span class="material-icons post__badge"> verified </span>@somanathg</span
-                >
-              </h3>
-            </div>
-            <div class="post__headerDescription">
-              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-            </div>
-          </div>
-          <img
-            src="https://www.focus2move.com/wp-content/uploads/2020/01/Tesla-Roadster-2020-1024-03.jpg"
-            alt=""
-          />
-          <div class="post__footer">
-            <span class="material-icons"> repeat </span>
-            <span class="material-icons"> favorite_border </span>
-            <span class="material-icons"> publish </span>
-          </div>
-        </div>
-      </div>
-      <!-- post ends -->
     </div>
     <!-- feed ends -->
 

@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+    getAge() {
+      return new Date().getFullYear() - new Date(this.dateOfBirth).getFullYear()
+    }
+
     static associate(models) {
       // define association here
       Profile.belongsTo(models.User,  {

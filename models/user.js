@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const bcrypt = require('bcryptjs');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -19,12 +20,12 @@ module.exports = (sequelize, DataTypes) => {
       });
       User.belongsToMany(User, {
         through: models.Mutual,
-        as: "to",
+        as: "Users",
         foreignKey: 'UserId'
       });
       User.belongsToMany(User, {
         through: models.Mutual,
-        as: "to",
+        as: "Mutuals",
         foreignKey: 'MutualId'
       });
     }
@@ -99,10 +100,15 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'User',
   });
+  User.beforeCreate((user) => {
+    user.isVerified = false;
+    user.role = 'user'
+  
+    const salt = bcrypt.genSaltSync(8);
+    const hash = bcrypt.hashSync(user.password, salt);
+  
+    user.password = hash
+  });
   return User;
 };
 
-User.beforeCreate((user) => {
-  user.isVerified = false;
-  user.role = 'user'
-});

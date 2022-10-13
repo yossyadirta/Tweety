@@ -2,11 +2,13 @@ const express = require('express');
 const { Controller } = require('../controllers/controller');
 const router = express.Router();
 
-router.get('/home', Controller.home)
-router.get('/new', Controller.formNewTweet)
-router.post('/new', Controller.newTweet)
-router.get('/:id/delete', Controller.deleteTweet)
-router.get('/:id/detail', Controller.detailTweet)
+// console.log(Controller);
+
+// router.get('/', Controller.home)
+// router.get('/new', Controller.formNewTweet)
+// router.post('/new', Controller.newTweet)
+// router.get('/:id/delete', Controller.deleteTweet)
+// router.get('/:id/detail', Controller.detailTweet)
 
 module.exports = router;
 
