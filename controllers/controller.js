@@ -5,8 +5,9 @@ const { User, Profile, Tweet, Mutual } = require('../models/index');
 class Controller {
 	static home (req, res) {
 		const id = req.session.userId;
-		const tweet = req.query.tweet
-		console.log(tweet);
+		const tweet = req.query.tweet;
+		const errors = req.query.errors?JSON.parse(req.query.errors):'';
+
 		let dataUser;
 		let options = {
 			include: {
@@ -34,7 +35,7 @@ class Controller {
 			return Tweet.findAll(options)
 		})
 		.then(data => {
-			res.render('home', { dataUser, data, getSince, id })
+			res.render('home', { dataUser, data, getSince, id, errors })
 		}) // tweet findall include user, user include mutual,
 		// let tweets;
 		// Tweet.findAll({
@@ -54,6 +55,9 @@ class Controller {
 			res.send(err)
 		})
 	}
+	static game(req, res) {
+		res.render('game')
+	}
 	static newTweet (req, res) {
 		const UserId = req.session.userId;
 		const { tweet, imageURL } = req.body
@@ -62,8 +66,15 @@ class Controller {
 			res.redirect('/tweets')
 		})
 		.catch(err => {
-			console.log(err);
-			res.send(err)
+			if (err.name === 'SequelizeValidationError') {
+				const errors = {}
+				err.errors.forEach(el => {
+					errors[el.path] = el.message
+				})
+				res.redirect(`/tweets?errors=${JSON.stringify(errors)}`)
+			} else {
+				res.send(err)
+			}
 		})
 	}
 	static deleteTweet (req, res) {
@@ -77,20 +88,50 @@ class Controller {
 			res.send(err)
 		})
 	}
-	static editTweet (req, res) {
+	static formEditTweet (req, res) {
+		const sesId = req.session.userId;
 		const id = req.params.id;
-		// const tweet = req.body.tweet
-		// console.log(tweet, 'tweet');
-		Tweet.update({tweet: req.body.tweet}, { where: { id } })
+		const errors = req.query.errors?JSON.parse(req.query.errors):'';
+		let tweet;
+		Tweet.findByPk(id)
 		.then(data => {
-			res.redirect('/tweets')
+			tweet = data
+			return User.findByPk(data.UserId, {
+				include: {
+					model: Profile
+				}
+			})
+		})
+		.then(dataUser => {
+			res.render('tweet-edit', { dataUser, tweet, errors, sesId})
 		})
 		.catch(err => {
 			console.log(err);
 			res.send(err)
 		})
 	}
+	static editTweet (req, res) {
+		const id = req.params.id;
+		const { tweet, imageURL } = req.body.tweet
+		// console.log(tweet, 'tweet');
+		Tweet.update({ tweet, imageURL }, { where: { id } })
+		.then(data => {
+			res.redirect('/tweets')
+		})
+		.catch(err => {
+			if (err.name === 'SequelizeValidationError') {
+				const errors = {}
+				err.errors.forEach(el => {
+					errors[el.path] = el.message
+				})
+				res.redirect(`/tweets/${id}/edit?errors=${JSON.stringify(errors)}`)
+			} else {
+				res.send(err)
+			}
+		})
+	}
 	static detailTweet (req, res) {
+		const sesId = req.session.userId;
 		const id = req.params.id;
 		let tweet;
 		Tweet.findByPk(id)
@@ -103,7 +144,18 @@ class Controller {
 			})
 		})
 		.then(dataUser => {
-			res.render('tweet-detail', { dataUser, tweet})
+			res.render('tweet-detail', { dataUser, tweet, sesId })
+		})
+		.catch(err => {
+			console.log(err);
+			res.send(err)
+		})
+	}
+	static like(req, res) {
+		const id = req.params.id
+		Tweet.increment('likes', { where: { id } })
+		.then(data => {
+			res.redirect(`/tweets`)
 		})
 		.catch(err => {
 			console.log(err);

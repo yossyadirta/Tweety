@@ -71,6 +71,16 @@
         <h2>Home</h2>
       </div>
 
+      <!-- error notif -->
+      <% if (errors) { %> 
+        <% Object.keys(errors).forEach(key => { %> 
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error!</strong> <%= errors[key] %>  
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+        <% }) %> 
+      <% } %> 
+
       <!-- tweetbox starts -->
       <div class="tweetBox">
         <form action="/tweets/new" method="post">
@@ -78,8 +88,8 @@
             <img
               src="<%= dataUser.imageURL || 'https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png' %>"
             />
-            <div style="display: block;">
               <input type="text" name="tweet" placeholder="What's happening?" />
+            <div class="ms-5">
               <input type="text" name="imageURL" placeholder="image URL" />
             </div>
           </div>
@@ -102,27 +112,29 @@
               <div class="post__headerText">
                 <h3>
                   <%= el.User.Profile.firstName %> <%= el.User.Profile.lastName %>
-                  <span class="post__headerSpecial">
+                  <span class="post__headerSpecial me-3" style="font-size: 15px;">
                   <% if (el.User.isVerified) { %> 
                     <span class="material-icons post__badge"> verified </span>
                   <% } %> 
-                    @<%= el.User.username %> </span> <span><%= getSince(el.createdAt) %> </span> 
+                    @<%= el.User.username %> </span> <span><%= getSince(el.updatedAt) %></span> 
                 </h3>
               </div>
               <div class="post__headerDescription">
                 <p><%= el.tweet %> </p>
               </div>
             </div>
-            <img
+            <img class="mb-2"
               src="<%= el.imageURL %> "
-              alt=""
             />
-            <div class="d-flex">
-             <!-- <a class="material-icons text-decoration-none"> repeat </a> -->
-              <a class="material-icons me-5 ms-5 text-decoration-none"> favorite_border </a>
+            <div class="d-flex justify-content-end align-items-center">
               <% if (el.User.id === id) {%> 
-                <a class="material-icons text-decoration-none" href="/tweets/<%= el.id %>/delete"> delete </a>
-                <%}%> 
+                <a class="material-icons text-decoration-none me-3" href="/tweets/<%= el.id %>/delete"> delete </a>
+              <%}%> 
+             <!-- <a class="material-icons text-decoration-none"> repeat </a> -->
+             <div class="d-flex align-items-center">
+              <a class="material-icons me-1 fs-5 text-danger" style="text-decoration: none;" href="/tweets/<%= el.id %>/like"> favorite </a> 
+              <span class="fs-6"><%= el.likesFormat %></span>
+            </div>
             </div>
           </div>
         </div>
