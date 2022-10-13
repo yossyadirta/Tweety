@@ -13,6 +13,15 @@ module.exports = (sequelize, DataTypes) => {
       return new Date().getFullYear() - new Date(this.dateOfBirth).getFullYear()
     }
 
+    get joinedDate() {
+      const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+      const d = this.createdAt
+      let month = months[d.getMonth()];
+      let year = d.getFullYear()
+
+      return `${month} ${year}`
+    }
+
     static associate(models) {
       // define association here
       Profile.belongsTo(models.User,  {
@@ -47,18 +56,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     imageURL: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notNull: {
-          msg: 'URL cannot be empty'
-        },
-        notEmpty: {
-          msg: 'URL cannot be empty'
-        },
-        isUrl: {
-          msg: 'Please enter a valid URL'
-        }
-      }
+      allowNull: false
     },
     dateOfBirth: {
       type: DataTypes.DATE,
@@ -92,6 +90,9 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Profile',
   });
   Profile.beforeCreate((profile)=>{
+    if (profile.image.length === 0) {
+      profile.imageURL = 'https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png'
+    }
     const GetLocation = require('location-by-ip');
     const SPOTT_API_KEY = '0be96fdc00mshf84f7d6c3db11a4p157843jsn0b25f428c04d';
 

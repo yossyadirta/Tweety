@@ -39,6 +39,8 @@ router.get('/admin/:id/verify', isAdmin, UserController.verifyUser)
 
 router.get('/home', isUser, UserController.renderHome)
 router.get('/profile/:username', isUser, UserController.renderProfile)
+router.get('/profile/:username/edit', isUser, UserController.renderEditProfile)
+router.post('/profile/:username/edit', isUser, UserController.editProfile)
 
 
 //GET Logout

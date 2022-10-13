@@ -1,8 +1,9 @@
 const express = require('express');
 const { Controller } = require('../controllers/controller');
+const UserController = require('../controllers/UserController');
 const session = require('express-session')
 const { isLoggedIn } = require('../middleware/authentication')
-const { isAdmin, isUser } = require('../middleware/authorization')
+const { isAdmin, isUser } = require('../middleware/authorization');
 const router = express.Router();
 
 router.use(session({
@@ -17,8 +18,8 @@ router.use(session({
 )
 
 router.use(isLoggedIn)
-router.use(isUser)
 
+router.get('/profile/:username', isUser, UserController.renderProfile)
 // router.post('/:username/edit', Controller.editProfile)
 // router.get('/:username', Controller.profile)
 

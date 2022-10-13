@@ -123,12 +123,12 @@ body {
 }
 
 .tweetbox__input {
-  display: flex;
+  display: block;
   padding: 20px;
 }
 
 .tweetbox__input input {
-  flex: 1;
+  /* flex: 1; */
   margin-left: 20px;
   font-size: 20px;
   border: none;

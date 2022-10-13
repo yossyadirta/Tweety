@@ -17,11 +17,13 @@ router.use(session({
 )
 
 router.use(isLoggedIn)
+router.get('/:id/like', Controller.like)
 router.use(isUser)
 
 router.get('/', Controller.home)
 router.post('/new', Controller.newTweet)
 router.get('/:id/detail', Controller.detailTweet)
+router.get('/:id/edit', Controller.formEditTweet)
 router.post('/:id/edit', Controller.editTweet)
 router.get('/:id/delete', Controller.deleteTweet)
 

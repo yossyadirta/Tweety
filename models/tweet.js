@@ -17,6 +17,13 @@ module.exports = (sequelize, DataTypes) => {
       return t.getHours() + ':' + minutes + ' · ' + t.toLocaleDateString({}, {timeZone:"UTC",month:"long", day:"2-digit", year:"numeric"})
     }
 
+    get likesFormat() {
+      if (this.likes >= 1000) {
+        return `${this.likes/1000}K`
+      }
+      return this.likes
+    }
+
     static associate(models) {
       // define association here
       Tweet.belongsTo(models.User,  {
@@ -44,6 +51,9 @@ module.exports = (sequelize, DataTypes) => {
     imageURL: {
       type: DataTypes.STRING 
     },
+    likes: {
+      type: DataTypes.INTEGER 
+    },
     UserId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -59,6 +69,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Tweet',
+  });
+  Tweet.beforeCreate((tweet) => {
+    tweet.likes = 0;
   });
   return Tweet;
 };

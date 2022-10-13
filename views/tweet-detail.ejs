@@ -48,6 +48,19 @@
         </div>
       </a>
 
+      <!-- Play Game -->
+      <a href="/game" class="text-decoration-none"> 
+        <div class="sidebarOption">
+          <span class="material-icons">
+            games
+          </span>
+            <h2>
+              Play Game
+            </h2>
+          <!-- <button class="sidebar__tweet">Tweet</button> -->
+        </div>
+      </a>
+
       <!-- Logout -->
       <a href="/logout" class="text-decoration-none"> 
       <div class="sidebarOption">
@@ -95,23 +108,23 @@
             </div>
             </a>
             <div class="post__headerDescription">
-              <!-- <p> </p> -->
-              <form action="/tweets/<%= tweet.id %>/edit" method="post">
-                <textarea type="text" name="tweet" class="form-control"><%= tweet.tweet %></textarea>
-                <p class="text-secondary" style="font-size: 14px;"><%= tweet.tweetDate %> </p>
-                <div class="d-flex justify-content-end">
-                  <input type="submit" value="Edit Tweet" class="sidebar__tweet" style="width: 25%; height: 40px;">
-                </div>
-              </form>
+                <p type="text"><%= tweet.tweet %></p>
+              </div>
             </div>
-          </div>
-          <img
+            <img
             src="<%= tweet.imageURL %> "
-          />
-          <div class="d-flex justify-content-start">
-            <!-- <span class="material-icons"> repeat </span> -->
-            <a class="material-icons me-3 text-decoration-none"> favorite_border </a> <span></span>
-            <a class="material-icons text-decoration-none" href="/tweets/<%= tweet.id %>/delete"> delete </a>
+            />
+            <div class="d-flex justify-content-start align-items-center">
+              <p class="text-secondary me-3" style="font-size: 14px;"><%= tweet.tweetDate %> </p>
+              <% if (dataUser.id === sesId) {%> 
+              <a class="material-icons fs-5 text-decoration-none" href="/tweets/<%= tweet.id %>/edit"> edit </a>
+              <a class="material-icons me-3 ms-3 text-decoration-none fs-5" href="/tweets/<%= tweet.id %>/delete"> delete </a>
+              <% } %> 
+
+              <div class="d-flex align-items-center">
+                <a class="material-icons me-1 fs-5 text-danger" style="text-decoration: none;" href="/tweets/<%= tweet.id %>/like"> favorite </a> 
+                <span class="fs-6"><%= tweet.likesFormat %></span>
+              </div>
           </div>
         </div>
       </div>
