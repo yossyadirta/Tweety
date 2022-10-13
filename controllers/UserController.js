@@ -40,6 +40,7 @@ class UserController {
           req.session.email = user.email
           req.session.username = user.username
           req.session.role = user.role
+          req.session.isVerified = user.isVerified
           if (req.session.role === 'admin') {
             return res.redirect('/admin')
           } else {
