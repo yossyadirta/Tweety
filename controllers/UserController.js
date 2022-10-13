@@ -1,4 +1,4 @@
-const { User } = require('../models/index')
+const { User, Profile } = require('../models/index')
 const bcrypt = require('bcryptjs');
 const { Op } = require('sequelize');
 
@@ -9,12 +9,17 @@ class UserController {
   }
   
   static postRegisterForm(req, res){
-    const {email, username, password, role} = req.body
+    const {email, username, password, role, firstName, lastName, imageURL, dateOfBirth} = req.body
     User.create({email, username, password, role})
+    .then(data=> {
+      const UserId = data.id
+      return Profile.create({firstName, lastName, imageURL, dateOfBirth, UserId })
+    })
     .then(newUser=>{
       res.redirect('/login')
     })
     .catch(err=>{
+      console.log(err);
       res.send(err)
     })
   }
@@ -84,7 +89,7 @@ class UserController {
     })
     .then(user=>{
       let session = req.session
-      console.log(req.session, '<< dari controller');
+      // console.log(req.session, '<< dari controller');
           res.render(`profile`, {user, session})
     })
     .catch(err=>{

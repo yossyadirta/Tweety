@@ -15,14 +15,59 @@ class Controller {
 					include: {
 						model: Profile
 					}
-				}
+				},
+				order: [['createdAt', 'desc']]
 			})
 		})
 		.then(data => {
-			console.log(data);
-			console.log(dataUser);
 			res.render('home', { dataUser, data, getSince })
 		}) // tweet findall include user, user include mutual,
+		.catch(err => {
+			console.log(err);
+			res.send(err)
+		})
+	}
+	static newTweet (req, res) {
+		const UserId = req.session.userId;
+		const { tweet, imageURL } = req.body
+		Tweet.create({ tweet, imageURL, UserId })
+		.then(data => {
+			res.redirect('/tweets')
+		})
+		.catch(err => {
+			console.log(err);
+			res.send(err)
+		})
+	}
+	static deleteTweet (req, res) {
+		// const id = req.session.userId;
+		const id = req.params.id;
+		Tweet.destroy({ where: { id } })
+		.then(data => {
+			res.redirect('/tweets')
+		})
+		.catch(err => {
+			console.log(err);
+			res.send(err)
+		})
+	}
+	static detailTweet (req, res) {
+		// const id = req.session.userId;
+		const id = req.params.id;
+		let tweet;
+		Tweet.findByPk(id)
+		.then(data => {
+			tweet = data
+			return User.findByPk(data.UserId, {
+				include: {
+					model: Profile
+				}
+			})
+		})
+		.then(dataUser => {
+			console.log(dataUser, tweet, "===============");
+			res.render('tweet-detail', { dataUser, tweet})
+		})
 		.catch(err => {
 			console.log(err);
 			res.send(err)

@@ -1,14 +1,28 @@
 const express = require('express');
 const { Controller } = require('../controllers/controller');
+const session = require('express-session')
+const { isLoggedIn } = require('../middleware/authentication')
+const { isAdmin, isUser } = require('../middleware/authorization')
 const router = express.Router();
 
-// console.log(Controller);
+router.use(session({
+	  secret: 'Secret Tweety Session', //mengamankan session, hanya dev yang tahu untuk pengamanan, isi bebas
+	  resave: false, //menyimpan jejak user berupa id/username. mau ada perubahan/tidak dan ingin disimpan maka value true, pasang false jika hanya ada perubahan
+	  saveUninitialized: false, //gunakan falsy untuk implementasi login session
+	  cookie: { 
+	    secure: false, //gunakan false karena masih di tahap development untuk http
+	    sameSite: true //untuk security
+	  } 
+	})
+)
 
-// router.get('/', Controller.home)
-// router.get('/new', Controller.formNewTweet)
-// router.post('/new', Controller.newTweet)
-// router.get('/:id/delete', Controller.deleteTweet)
-// router.get('/:id/detail', Controller.detailTweet)
+router.use(isLoggedIn)
+router.use(isUser)
+
+router.get('/', Controller.home)
+router.post('/new', Controller.newTweet)
+router.get('/:id/delete', Controller.deleteTweet)
+router.get('/:id/detail', Controller.detailTweet)
 
 module.exports = router;
 
