@@ -120,7 +120,9 @@
             <div class="d-flex">
               <a class="material-icons text-decoration-none"> repeat </a>
               <a class="material-icons me-5 ms-5 text-decoration-none"> favorite_border </a>
-              <a class="material-icons text-decoration-none" href="/tweets/<%= el.id %>/delete"> delete </a>
+              <% if (el.User.id === id) {%> 
+                <a class="material-icons text-decoration-none" href="/tweets/<%= el.id %>/delete"> delete </a>
+                <%}%> 
             </div>
           </div>
         </div>

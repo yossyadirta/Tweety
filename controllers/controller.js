@@ -20,7 +20,7 @@ class Controller {
 			})
 		})
 		.then(data => {
-			res.render('home', { dataUser, data, getSince })
+			res.render('home', { dataUser, data, getSince, id })
 		}) // tweet findall include user, user include mutual,
 		.catch(err => {
 			console.log(err);

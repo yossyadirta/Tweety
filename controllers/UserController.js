@@ -46,6 +46,7 @@ class UserController {
           req.session.username = user.username
           req.session.role = user.role
           req.session.isVerified = user.isVerified
+          console.log(req.session);
           if (req.session.role === 'admin') {
             res.redirect('/admin')
           } else {
@@ -98,7 +99,93 @@ class UserController {
   }
 
   static renderAdmin(req, res){
-    res.render('admin')
+    User.findAll({where: {
+      role: 'user'
+    },
+  include: {
+    model: Profile
+  }})
+    .then(data=>{
+      res.render('admin', {data})
+    })
+    .catch(err=>{
+      res.send(err)
+    })
+  }
+
+  static renderAdminList(req, res){
+    User.findAll({where: {
+      role: 'admin'
+    },
+  include: {
+    model: Profile
+  }})
+    .then(data=>{
+      res.render('admin-list', {data})
+    })
+    .catch(err=>{
+      res.send(err)
+    })
+  }
+
+  static deleteUser(req, res){
+    let {id} = req.params
+    User.destroy({where: {
+      role: 'user',
+      id: id
+    },
+    include: {
+    model: Profile
+  }})
+    .then(data=>{
+      res.redirect('/admin')
+    })
+    .catch(err=>{
+      res.send(err)
+    })
+  }
+
+  static deleteAdmin(req, res){
+    let {id} = req.params
+    User.destroy({where: {
+      role: 'admin',
+      id: id
+    },
+    include: {
+    model: Profile
+  }})
+    .then(data=>{
+      res.redirect('/admin/admin-list')
+    })
+    .catch(err=>{
+      res.send(err)
+    })
+  }
+
+  static verifyUser(req, res){
+    let {id} = req.params
+    let isVerified;
+
+    User.findByPk(id)
+    .then(data=>{
+      console.log(data);
+      isVerified = data.isVerified
+        return  User.update({
+          isVerified: !isVerified
+        },{where: {
+          role: 'user',
+          id: id
+        },
+        include: {
+        model: Profile
+      }})
+      .then(data=>{
+        res.redirect('/admin')
+      })
+    })
+    .catch(err=>{
+      res.send(err)
+    })
   }
 }
 

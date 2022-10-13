@@ -8,7 +8,6 @@
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
       </style>
-
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link
     rel="stylesheet"
@@ -68,7 +67,7 @@
 <!-- Navbar -->
 <br><br>
 <div class="mx-auto" style="width: 200px;">
-  <h1>User list</h1>
+  <h1>Admin list</h1>
 </div>
 <br><br>
       <table class="table align-middle mb-0 bg-white">
@@ -88,7 +87,7 @@
             <td>
               <div class="d-flex align-items-center">
                 <img
-                    src="<%= el.Profile.imageURL %>"
+                    src="https://www.pngmart.com/files/21/Admin-Profile-PNG-Clipart.png"
                     alt=""
                     style="width: 45px; height: 45px"
                     class="rounded-circle"
@@ -108,7 +107,7 @@
 
             <td>
               <button type="button" class="btn btn-link btn-sm btn-rounded">
-                <a href="/admin/<%=el.id%>/verify"><%= el.isVerified %></a>
+                <a href="">isVerified</a>
               </button>
             </td>
             <td>
@@ -116,7 +115,7 @@
             </td>
             <td>
               <button type="button" class="btn btn-link btn-sm btn-rounded">
-                <a href="/admin/<%=el.id%>/delete">Delete</a>
+                <a href="/admin/admin-list/<%= el.id %>/delete">Delete</a>
               </button>
             </td>
           </tr>
