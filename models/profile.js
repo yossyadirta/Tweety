@@ -92,5 +92,23 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Profile',
   });
+  Profile.beforeCreate((profile)=>{
+    const GetLocation = require('location-by-ip');
+    const SPOTT_API_KEY = '0be96fdc00mshf84f7d6c3db11a4p157843jsn0b25f428c04d';
+
+    const getLocation = new GetLocation(SPOTT_API_KEY);
+    const options = {
+      language: 'id' // Russian
+    };
+
+    const location = getLocation.byMyIp(options);
+    location
+    .then(data => {
+      profile.location = data.name
+    })
+    .catch(error => {
+      console.error(error)
+    });
+  })
   return Profile;
 };
