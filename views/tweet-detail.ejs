@@ -89,13 +89,14 @@
       <div class="post">
         <div class="post__avatar">
           <img
-          src="<%= dataUser.imageURL || 'https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png' %>"
+          src="<%= dataUser.Profile.imageURL || 'https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png' %>"
           />
         </div>
         <div class="post__body">
           <div class="post__header">
+            <a href="/profile/<%= dataUser.username %>" class="text-decoration-none">
             <div class="post__headerText">
-              <h3>
+              <h6 style="font-weight: 700; font-size: 16px">
                 <%= dataUser.Profile.firstName %> <%= dataUser.Profile.lastName %>
                 <div class="post__headerSpecial" style="font-size: 14px;">
                 <% if (dataUser.isVerified) { %> 
@@ -105,6 +106,7 @@
                 </div>
               </h3>
             </div>
+            </a>
             <div class="post__headerDescription">
                 <p type="text"><%= tweet.tweet %></p>
               </div>

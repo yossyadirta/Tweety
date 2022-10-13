@@ -7,7 +7,7 @@ class Controller {
 		const id = req.session.userId;
 		const tweet = req.query.tweet;
 		const errors = req.query.errors?JSON.parse(req.query.errors):'';
-
+    
 		let dataUser;
 		let options = {
 			include: {
@@ -51,7 +51,7 @@ class Controller {
 			
 		// })
 		.catch(err => {
-			console.log(err);
+			// console.log(err);
 			res.send(err)
 		})
 	}
@@ -84,7 +84,7 @@ class Controller {
 			res.redirect('/tweets')
 		})
 		.catch(err => {
-			console.log(err);
+			// console.log(err);
 			res.send(err)
 		})
 	}
@@ -158,7 +158,7 @@ class Controller {
 			res.redirect(`/tweets`)
 		})
 		.catch(err => {
-			console.log(err);
+			// console.log(err);
 			res.send(err)
 		})
 	}
