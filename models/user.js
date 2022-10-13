@@ -19,12 +19,12 @@ module.exports = (sequelize, DataTypes) => {
       });
       User.belongsToMany(User, {
         through: models.Mutual,
-        as: "to",
+        as: "Users",
         foreignKey: 'UserId'
       });
       User.belongsToMany(User, {
         through: models.Mutual,
-        as: "to",
+        as: "Mutuals",
         foreignKey: 'MutualId'
       });
     }
@@ -99,10 +99,10 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'User',
   });
+  
+  User.beforeCreate((user) => {
+    user.isVerified = false;
+    user.role = 'user'
+  });
   return User;
 };
-
-User.beforeCreate((user) => {
-  user.isVerified = false;
-  user.role = 'user'
-});

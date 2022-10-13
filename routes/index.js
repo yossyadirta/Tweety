@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router()
-const { Controller } = require('../controllers/controller.js');
 
 const tweetsRoutes = require('./tweetsRoutes');
 const profilesRoutes = require('./profilesRoutes');
 const adminRoutes = require('./adminRoutes');
 
 router.get('/', (req, res) => {
-	res.redirect('/tweets/home')
+	// res.redirect('/tweets/home')
+	// res.send('annyeong')
 })
 
 router.use('/tweets', tweetsRoutes)
