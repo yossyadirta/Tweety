@@ -21,7 +21,6 @@ router.get('/:id/like', Controller.like)
 router.use(isUser)
 
 router.get('/', Controller.home)
-router.get('/game', Controller.game)
 router.post('/new', Controller.newTweet)
 router.get('/:id/detail', Controller.detailTweet)
 router.get('/:id/edit', Controller.formEditTweet)
