@@ -93,23 +93,34 @@
               </h3>
             </div>
             <div class="post__headerDescription">
-                <p type="text"><%= tweet.tweet %></p>
-              </div>
+               <!-- error notif -->
+      <% if (errors) { %> 
+        <% Object.keys(errors).forEach(key => { %> 
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error!</strong> <%= errors[key] %>  
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+        <% }) %> 
+      <% } %> 
+              <!-- <p> </p> -->
+              <form action="/tweets/<%= tweet.id %>/edit" method="post">
+                <textarea type="text" name="tweet" class="form-control"><%= tweet.tweet %></textarea>
+                <input class="form-control" placeholder="enter image URL.." type="text" name="imageURL" value="<%= tweet.imageURL %>">
+                <div class="d-flex justify-content-end">
+                  <input type="submit" value="Edit Tweet" class="sidebar__tweet" style="width: 25%; height: 40px;">
+                </div>
+              </form>
             </div>
-            <img
+          </div>
+          <img
             src="<%= tweet.imageURL %> "
-            />
-            <div class="d-flex justify-content-start align-items-center">
-              <p class="text-secondary me-3" style="font-size: 14px;"><%= tweet.tweetDate %> </p>
-              <% if (dataUser.id === sesId) {%> 
-              <a class="material-icons fs-5 text-decoration-none" href="/tweets/<%= tweet.id %>/edit"> edit </a>
-              <a class="material-icons me-3 ms-3 text-decoration-none fs-5" href="/tweets/<%= tweet.id %>/delete"> delete </a>
-              <% } %> 
-
-              <div class="d-flex align-items-center">
-                <a class="material-icons me-1 fs-5 text-danger" style="text-decoration: none;" href="/tweets/<%= tweet.id %>/like"> favorite </a> 
-                <span class="fs-6"><%= tweet.likesFormat %></span>
-              </div>
+          />
+          <div class="d-flex justify-content-end">
+            <!-- <span class="material-icons"> repeat </span> -->
+            <p class="text-secondary me-3" style="font-size: 14px;"><%= tweet.tweetDate %> </p>
+            <% if (dataUser.id === sesId) {%> 
+              <a class="material-icons text-decoration-none" href="/tweets/<%= tweet.id %>/delete"> delete </a>
+            <% } %> 
           </div>
         </div>
       </div>
