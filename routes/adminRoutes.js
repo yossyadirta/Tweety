@@ -32,6 +32,11 @@ router.use(isLoggedIn)
 
 router.get('/admin', isAdmin, UserController.renderAdmin)
 
+router.get('/admin/admin-list', isAdmin, UserController.renderAdminList)
+router.get('/admin/admin-list/:id/delete', isAdmin, UserController.deleteAdmin)
+router.get('/admin/:id/delete', isAdmin, UserController.deleteUser)
+router.get('/admin/:id/verify', isAdmin, UserController.verifyUser)
+
 router.get('/home', isUser, UserController.renderHome)
 router.get('/profile/:username', isUser, UserController.renderProfile)
 
