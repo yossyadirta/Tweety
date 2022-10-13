@@ -1,4 +1,4 @@
-const { User } = require('../models/index')
+const { User, Profile } = require('../models/index')
 const bcrypt = require('bcryptjs');
 const { Op } = require('sequelize');
 
@@ -19,6 +19,7 @@ class UserController {
       res.redirect('/login')
     })
     .catch(err=>{
+      console.log(err);
       res.send(err)
     })
   }
