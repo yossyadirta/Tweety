@@ -9,8 +9,12 @@ class UserController {
   }
   
   static postRegisterForm(req, res){
-    const {email, username, password, role} = req.body
+    const {email, username, password, role, firstName, lastName, imageURL, dateOfBirth} = req.body
     User.create({email, username, password, role})
+    .then(data=> {
+      const UserId = data.id
+      return Profile.create({firstName, lastName, imageURL, dateOfBirth, UserId })
+    })
     .then(newUser=>{
       res.redirect('/login')
     })
