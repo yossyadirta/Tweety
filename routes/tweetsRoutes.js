@@ -4,7 +4,7 @@ const router = express.Router();
 
 // console.log(Controller);
 
-router.get('/', Controller.home)
+// router.get('/', Controller.home)
 // router.get('/new', Controller.formNewTweet)
 // router.post('/new', Controller.newTweet)
 // router.get('/:id/delete', Controller.deleteTweet)
