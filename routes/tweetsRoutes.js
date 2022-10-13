@@ -21,8 +21,9 @@ router.use(isUser)
 
 router.get('/', Controller.home)
 router.post('/new', Controller.newTweet)
-router.get('/:id/delete', Controller.deleteTweet)
 router.get('/:id/detail', Controller.detailTweet)
+router.post('/:id/edit', Controller.editTweet)
+router.get('/:id/delete', Controller.deleteTweet)
 
 module.exports = router;
 

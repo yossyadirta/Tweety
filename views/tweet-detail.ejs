@@ -43,7 +43,7 @@
           perm_identity 
         </span>
           <h2>      
-            profile
+            Profile
           </h2>
         </div>
       </a>
@@ -58,7 +58,9 @@
             Sign out 
           </h2>
         </div>
-        <button class="sidebar__tweet">Tweet</button>
+        <a href="/tweets" class="text-decoration-none">
+          <button class="sidebar__tweet" >Tweet</a>
+        </a>
       </div>
     </a>
     <!-- END OF LEFT SIDE NAV -->
@@ -67,9 +69,9 @@
     <!-- feed starts -->
     <div class="feed">
       <div class="feed__header">
-        <h2>Home</h2>
+        <h2>Tweet</h2>
       </div>
-
+        
       <!-- post starts -->
       <div class="post">
         <div class="post__avatar">
@@ -81,27 +83,32 @@
           <div class="post__header">
             <div class="post__headerText">
               <h3>
-                <%= dataUser.firstName %> <%= dataUser.lastName %>
-                <div class="post__headerSpecial">
-                <% if (tweet.isVerified) { %> 
+                <%= dataUser.Profile.firstName %> <%= dataUser.Profile.lastName %>
+                <div class="post__headerSpecial" style="font-size: 14px;">
+                <% if (dataUser.isVerified) { %> 
                   <span class="material-icons post__badge"> verified </span>
                 <% } %> 
-                  @<%= tweet.userame %> 
+                  @ <%= dataUser.username %> 
                 </div>
               </h3>
             </div>
             <div class="post__headerDescription">
-              <p><%= tweet.tweet %> </p>
-              <p><%= tweet.tweetDate %> </p>
+              <!-- <p> </p> -->
+              <form action="/tweets/<%= tweet.id %>/edit" method="post">
+                <textarea type="text" name="tweet" class="form-control"><%= tweet.tweet %></textarea>
+                <p class="text-secondary" style="font-size: 14px;"><%= tweet.tweetDate %> </p>
+                <div class="d-flex justify-content-end">
+                  <input type="submit" value="Edit Tweet" class="sidebar__tweet" style="width: 25%; height: 40px;">
+                </div>
+              </form>
             </div>
           </div>
           <img
             src="<%= tweet.imageURL %> "
-            alt=""
           />
-          <div class="post__footer">
-            <span class="material-icons"> repeat </span>
-            <span class="material-icons"> favorite_border </span>
+          <div class="d-flex justify-content-start">
+            <!-- <span class="material-icons"> repeat </span> -->
+            <a class="material-icons me-3 text-decoration-none"> favorite_border </a> <span></span>
             <a class="material-icons text-decoration-none" href="/tweets/<%= tweet.id %>/delete"> delete </a>
           </div>
         </div>
@@ -118,9 +125,9 @@
     <div class="widgets">
       <div class="widgets__input">
         <span class="material-icons widgets__searchIcon"> search </span>
-        <form action="" method="">
-        <input type="text" placeholder="Search Twitter" name="search" />
-      </form>
+        <form action="/tweets" method="get">
+          <input type="text" placeholder="Search Twitter" name="tweet" />
+        </form>
       </div>
 
       <div class="widgets__widgetContainer">
