@@ -9,21 +9,24 @@ router.get('/', (req, res) => {
 module.exports = router;
 
 // user role
-// 1. ngetweet wkwk (C)
-// 2. liat all tweet di timeline (R)
-// 3. see tweet detail (R)
-// 4. delete tweet (D)
-// 5. liat profile sendiri (R)
-// 6. edit profile sendiri (U)
-// 7. liat profile orang (R)
-// 8. liat all tweet orang (R)
+// - liat all tweet di timeline (R)
+// /home
+// - create tweet
+// /tweets/create
+// - see tweet detail (R)
+// /tweets/detail/:id
+// - delete tweet (D)
+// /tweets/delete/:id
+// - liat profile sendiri, profile orang: endpointnya sama, tapi nnti pas ngerender button2 actionnya dibuat kondisi pake session
+// /profiles/:username
+// - edit profile sendiri (U), profile orang: kalo session idnya bukan kt ya gabisa akses
+// /profiles/:username/edit
+// - optional most liked tweet/random tweet of the day/NGAMBIL DR TWEET ORANG TWITTER BENERAN COOL
 
 // admin role
 // 1. make user official/centang biru (U)
+// /admin/:username/verify
 // 2. delete user (D)
-
-// user 
-// 1. login (R)
-// 2. register (C)
-
-
+// /admin/:username/delete
+// 3. apus tweet (optional, buat col baru isReported) 
+// /tweets/:id/:username/delete
