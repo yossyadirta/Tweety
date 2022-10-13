@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     get tweetDate() {
-      const t = this.createdAt
+      const t = this.updatedAt
       const _minutes = t.getMinutes();
       const minutes = _minutes.toString().length == 1 ? '0'+_minutes : _minutes.toString();
 
