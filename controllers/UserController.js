@@ -92,7 +92,6 @@ class UserController {
     })
     .then(user=>{
       let session = req.session
-      console.log(user, "INI DATA INCLUDE PROFILE =================");
       // console.log(req.session, '<< dari controller');
           res.render('profile', { user, session })
     })
@@ -102,18 +101,17 @@ class UserController {
   }
 
   static renderEditProfile(req, res){
-    let { username } = req.params
+    let id = req.params.userId
     const errors = req.query.errors?JSON.parse(req.query.errors):'';
     
     User.findOne({
       where: {
-        username
+        id
       },
       include: [Profile, Tweet]
     })
     .then(user=>{
       let session = req.session
-      console.log(user, "INI DATA INCLUDE PROFILE =================");
       res.render('profile-edit', {user, session, errors})
     })
     .catch(err=>{
@@ -122,13 +120,15 @@ class UserController {
   }
 
   static editProfile(req, res){
-   let uname = req.params.username
+   let id = req.params.userId
    const { firstName, lastName, username } = req.body
-   User.update({ firstName, lastName, username }, {where: { username: uname }})
+   User.update({ firstName, lastName, username }, {where: { id }})
    .then(data => {
+    console.log('miaw');
     res.redirect(`/profile/${username}`)
    })
    .catch(err=>{
+    console.log('meong');
     if (err.name === 'SequelizeValidationError') {
       const errors = {}
       err.errors.forEach(el => {
@@ -233,3 +233,5 @@ class UserController {
 }
 
 module.exports = UserController
+
+heroku config:set SECRET=inisangatamansekali --app tweetytweety

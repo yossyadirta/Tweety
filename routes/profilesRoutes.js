@@ -19,7 +19,6 @@ router.use(session({
 
 router.use(isLoggedIn)
 
-router.get('/profile/:username', isUser, UserController.renderProfile)
 // router.post('/:username/edit', Controller.editProfile)
 // router.get('/:username', Controller.profile)
 

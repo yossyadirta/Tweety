@@ -72,7 +72,6 @@
 
       <!-- tweetbox starts -->
       <div class="tweetBox">
-        <form action="" method="">
           <div class="d-flex justify-content-start">
             <img
               src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png"
@@ -90,7 +89,7 @@
                 <% }) %> 
               <% } %> 
               
-              <form action="/profile/<%= user.username %>/edit" method="POST">
+              <form action="/profile/<%= user.id %>/edit" method="POST">
                 <input class="form-control" name="firstName" type="text" value="<%= user.Profile.firstName %>"/> 
                 <input class="form-control" name="lastName" type="text" value="<%= user.Profile.lastName %>"/>
                 <input class="form-control" name="username" type="text" value="<%= user.username %>"/> 
@@ -99,7 +98,6 @@
             </div>
           </div>
           
-        </form>
       </div>
       <!-- tweetbox ends -->
 
