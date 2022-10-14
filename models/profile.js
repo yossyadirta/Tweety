@@ -104,17 +104,15 @@ module.exports = (sequelize, DataTypes) => {
 
     let locs;
     const location = getLocation.byMyIp(options);
-    location
+    return location
     .then(data => {
       // console.log(data);
       // console.log(profile);
-      return locs = data.name
+      profile.location = data.name
     })
     .catch(error => {
       console.error(error)
     });
-    profile.location = locs
-    console.log(profile.location);
   })
   return Profile;
 };
