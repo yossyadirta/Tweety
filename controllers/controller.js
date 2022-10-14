@@ -7,7 +7,7 @@ class Controller {
 		const id = req.session.userId;
 		const tweet = req.query.tweet;
 		const errors = req.query.errors?JSON.parse(req.query.errors):'';
-
+    
 		let dataUser;
 		let options = {
 			include: {
@@ -35,6 +35,7 @@ class Controller {
 			return Tweet.findAll(options)
 		})
 		.then(data => {
+			console.log(dataUser);
 			res.render('home', { dataUser, data, getSince, id, errors })
 		}) // tweet findall include user, user include mutual,
 		// let tweets;
@@ -51,7 +52,7 @@ class Controller {
 			
 		// })
 		.catch(err => {
-			console.log(err);
+			// console.log(err);
 			res.send(err)
 		})
 	}
@@ -84,7 +85,7 @@ class Controller {
 			res.redirect('/tweets')
 		})
 		.catch(err => {
-			console.log(err);
+			// console.log(err);
 			res.send(err)
 		})
 	}
@@ -158,7 +159,7 @@ class Controller {
 			res.redirect(`/tweets`)
 		})
 		.catch(err => {
-			console.log(err);
+			// console.log(err);
 			res.send(err)
 		})
 	}
