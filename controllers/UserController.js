@@ -92,6 +92,7 @@ class UserController {
     })
     .then(user=>{
       let session = req.session
+      console.log(user);
       console.log(user, "INI DATA INCLUDE PROFILE =================");
       // console.log(req.session, '<< dari controller');
           res.render('profile', { user, session })

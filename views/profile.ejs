@@ -46,7 +46,18 @@
           </h2>
         </div>
       </a>
-
+      <!-- Play Game -->
+      <a href="/game" class="text-decoration-none"> 
+        <div class="sidebarOption">
+          <span class="material-icons">
+            games
+          </span>
+            <h2>
+              Play Game
+            </h2>
+          <!-- <button class="sidebar__tweet">Tweet</button> -->
+        </div>
+      </a>
       <!-- Logout -->
       <a href="/logout" class="text-decoration-none"> 
       <div class="sidebarOption">
@@ -72,7 +83,7 @@
       <!-- tweetbox starts -->
       <div class="tweetBox" style="text-align: center;">
           <img
-            src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png"
+            src="<%= user.Profile.imageURL %>"
             alt="" width="200px" height="200px" style="padding-top: 16px;"
           />
           
@@ -91,10 +102,11 @@
       <!-- tweetbox ends -->
 
       <!-- post starts -->
+      <% user.Tweets.forEach(el => { %> 
       <div class="post">
         <div class="post__avatar">
           <img
-          src="https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png"
+          src="<%= user.Profile.imageURL %>"
             alt=""
           />
         </div>
@@ -105,23 +117,29 @@
               <h3>
                 <%= user.Profile.firstName %> <%= user.Profile.lastName %>
                 <span class="post__headerSpecial"
-                  ><span class="material-icons post__badge"> verified </span>@<%= user.username %></span
+                  >
+                  <% if (user.isVerified) { %> 
+                    <span class="material-icons post__badge"> verified </span>
+                  <% } %> @<%= user.username %></span
                 >
               </h3>
             </div>
             <div class="post__headerDescription">
-              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+              <p><%= el.tweet %></p>
             </div>
           </div>
           <img
-            src="https://www.focus2move.com/wp-content/uploads/2020/01/Tesla-Roadster-2020-1024-03.jpg"
+            src="<%= el.imageURL %>"
             alt="" style="padding-top: 12px; padding-bottom: 12px;"
           />
-          <div class="post__footer">
-            <span class="material-icons"> favorite_border </span>
-          </div>
+          <div class="d-flex">
+            <!-- <a class="material-icons text-decoration-none"> repeat </a> -->
+             <!-- <a class="material-icons me-5 ms-5 text-decoration-none"> favorite_border </a> -->
+               <a class="material-icons text-decoration-none" href="/tweets/<%= user.id %>/delete"> delete </a>
+           </div>
         </div>
       </div>
+      <% }) %> 
       <!-- post ends -->
     </div>
     <!-- feed ends -->

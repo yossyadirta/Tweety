@@ -90,9 +90,10 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Profile',
   });
   Profile.beforeCreate((profile)=>{
-    if (profile.image.length === 0) {
-      profile.imageURL = 'https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png'
-    }
+    // if (profile.image.length === 0) {
+    //   profile.imageURL = 'https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png'
+    // }
+    
     const GetLocation = require('location-by-ip');
     const SPOTT_API_KEY = '0be96fdc00mshf84f7d6c3db11a4p157843jsn0b25f428c04d';
 
@@ -101,14 +102,19 @@ module.exports = (sequelize, DataTypes) => {
       language: 'id' // Russian
     };
 
+    let locs;
     const location = getLocation.byMyIp(options);
     location
     .then(data => {
-      profile.location = data.name
+      // console.log(data);
+      // console.log(profile);
+      return locs = data.name
     })
     .catch(error => {
       console.error(error)
     });
+    profile.location = locs
+    console.log(profile.location);
   })
   return Profile;
 };

@@ -35,6 +35,7 @@ class Controller {
 			return Tweet.findAll(options)
 		})
 		.then(data => {
+			console.log(dataUser);
 			res.render('home', { dataUser, data, getSince, id, errors })
 		}) // tweet findall include user, user include mutual,
 		// let tweets;

@@ -46,20 +46,18 @@
           </h2>
         </div>
       </a>
-
       <!-- Play Game -->
       <a href="/game" class="text-decoration-none"> 
-      <div class="sidebarOption">
-        <span class="material-icons">
-          games
-        </span>
-          <h2>
-            Play Game
-          </h2>
-        <!-- <button class="sidebar__tweet">Tweet</button> -->
-      </div>
-    </a>
-
+        <div class="sidebarOption">
+          <span class="material-icons">
+            games
+          </span>
+            <h2>
+              Play Game
+            </h2>
+          <!-- <button class="sidebar__tweet">Tweet</button> -->
+        </div>
+      </a>
       <!-- Logout -->
       <a href="/logout" class="text-decoration-none"> 
       <div class="sidebarOption">
@@ -82,16 +80,6 @@
         <h2>Home</h2>
       </div>
 
-      <!-- error notif -->
-      <% if (errors) { %> 
-        <% Object.keys(errors).forEach(key => { %> 
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <strong>Error!</strong> <%= errors[key] %>  
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-        <% }) %> 
-      <% } %> 
-
       <!-- tweetbox starts -->
       <div class="tweetBox" style="padding-right: 24px;">
         <form action="/tweets/new" method="post" style="padding-bottom: 24px;">
@@ -99,9 +87,8 @@
             <img
               src="<%= dataUser.Profile.imageURL || 'https://i.pinimg.com/originals/a6/58/32/a65832155622ac173337874f02b218fb.png' %>"
             />
+            <div style="display: block;">
               <input type="text" name="tweet" placeholder="What's happening?" />
-            <div class="ms-5">
-              <input type="text" name="imageURL" placeholder="image URL" />
             </div>
           </div>
           <div class="tweetbox__input" style="padding-top: 1px; padding-bottom: 1px;">
@@ -129,12 +116,11 @@
               <div class="post__headerText">
                 <h3>
                   <%= el.User.Profile.firstName %> <%= el.User.Profile.lastName %>
-                  <span class="post__headerSpecial me-3" style="font-size: 15px;">
+                  <span class="post__headerSpecial">
                   <% if (el.User.isVerified) { %> 
                     <span class="material-icons post__badge"> verified </span>
                   <% } %> 
-                  <span style="font-weight: 500; font-size: 16px; padding-left: 8px;">@<%= el.User.username %> </span>  <span style="font-weight: 500; font-size: 16px; padding-left: 8px;"> · </span>   <span style="font-weight: 500; font-size: 16px; padding-left: 8px;"><%= getSince(el.updatedAt) %> </span> 
-
+                  <span style="font-weight: 500; font-size: 16px; padding-left: 8px;">@<%= el.User.username %> </span>  <span style="font-weight: 500; font-size: 16px; padding-left: 8px;"> · </span>   <span style="font-weight: 500; font-size: 16px; padding-left: 8px;"><%= getSince(el.createdAt) %> </span> 
                 </h3>
               </div>
               <div class="post__headerDescription">
@@ -149,13 +135,8 @@
              <!-- <a class="material-icons text-decoration-none"> repeat </a> -->
               <!-- <a class="material-icons me-5 ms-5 text-decoration-none"> favorite_border </a> -->
               <% if (el.User.id === id) {%> 
-                <a class="material-icons text-decoration-none me-3" href="/tweets/<%= el.id %>/delete"> delete </a>
-              <%}%> 
-             <!-- <a class="material-icons text-decoration-none"> repeat </a> -->
-             <div class="d-flex align-items-center">
-              <a class="material-icons me-1 fs-5 text-danger" style="text-decoration: none;" href="/tweets/<%= el.id %>/like"> favorite </a> 
-              <span class="fs-6"><%= el.likesFormat %></span>
-            </div>
+                <a class="material-icons text-decoration-none" href="/tweets/<%= el.id %>/delete"> delete </a>
+                <%}%> 
             </div>
           </div>
         </div>
