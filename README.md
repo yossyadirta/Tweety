@@ -1,4 +1,4 @@
 # Tweety
 
-Tweety adalah platform tiruan twitter tempat pengguna dapat memposting, mengedit, dan menghapus tweet. Proyek ini adalah proyek berpasangan saat mengikuti bootcamp Hacktiv8
+Tweety is a twitter-clone platform where users can post, edit and delete tweets. This project is a pair project while following the Hacktiv8 bootcamp
 
